@@ -1,0 +1,6 @@
+node_modules/
+dist/
+charts/*/charts/
+scenarios/*/deploy/chart/charts/
+*.tgz
+outage-drill-workspace/

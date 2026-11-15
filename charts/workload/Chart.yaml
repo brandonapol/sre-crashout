@@ -1,0 +1,5 @@
+apiVersion: v2
+name: workload
+description: Deployment and Service shapes shared by every product chart in this repository
+type: library
+version: 0.1.0

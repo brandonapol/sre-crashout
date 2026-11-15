@@ -1,0 +1,6 @@
+dependencies:
+- name: workload
+  repository: file://../../../../charts/workload
+  version: 0.1.0
+digest: sha256:a834f4f7db659555fe05b7c6eaf5ae1b2481fe6a7035d3f0f75c6b557b2e56b2
+generated: "2026-11-14T22:39:33.785580257Z"

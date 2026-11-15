@@ -1,0 +1,44 @@
+release: 2.8.3
+
+services:
+  web:
+    main: dist/scenarios/quoting/services/web/main.js
+    version: 2.8.3
+    replicas: 2
+    env:
+      QUOTES_URL: http://quotes:8080
+      QUOTES_TIMEOUT: 2s
+      QUOTES_ATTEMPTS: 2
+      MAX_IN_FLIGHT: 8
+      PROMO_BANNER: false
+
+  quotes:
+    main: dist/scenarios/quoting/services/quotes/main.js
+    version: 2.8.3
+    replicas: 2
+    env:
+      PRICING_URL: http://pricing:8080
+      PRICING_TIMEOUT: 300ms
+      PRICING_ATTEMPTS: 3
+      TAX_TABLE_VERSION: 2026-10
+
+  pricing:
+    main: dist/scenarios/quoting/services/pricing/main.js
+    version: 2.8.3
+    replicas: 1
+    env:
+      PRICE_CACHE_TTL: 5m
+      RATE_ENGINE_POOL_SIZE: 4
+      RATE_ENGINE_QUEUE_LIMIT: 2000
+      RATE_ENGINE_MEDIAN_LATENCY: 45ms
+      PRICE_SNAPSHOT_SKUS: 600
+
+  browser-sim:
+    main: dist/scenarios/quoting/services/browser-sim/main.js
+    version: 1.0.0
+    replicas: 1
+    env:
+      WEB_URL: http://web:8080
+      TRAFFIC_RATE: 25
+      CATALOG_SIZE: 600
+      CLIENT_TIMEOUT: 10s

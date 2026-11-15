@@ -1,0 +1,33 @@
+release: 3.6.4
+services:
+  ledger-api:
+    main: dist/scenarios/ledger/services/ledger-api/main.js
+    version: 3.6.4
+    replicas: 2
+    env:
+      FX_RATES_URL: http://fx-rate:8080
+      FX_TIMEOUT: 800ms
+      IDEMPOTENCY_TTL: 2m
+      IDEMPOTENCY_SWEEP_INTERVAL: 30s
+      SCREENING_RULESET_SIZE: 24
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 192Mi
+  fx-rates:
+    main: dist/scenarios/ledger/services/fx-rates/main.js
+    version: 1.12.1
+    replicas: 1
+    env:
+      FEED_REFRESH_INTERVAL: 15s
+      FEED_TIMEOUT: 2s
+  partner-sim:
+    main: dist/scenarios/ledger/services/partner-sim/main.js
+    version: 1.0.0
+    replicas: 1
+    env:
+      LEDGER_URL: http://ledger-api:8080
+      TRAFFIC_RATE: 50
+      CLIENT_TIMEOUT: 5s
