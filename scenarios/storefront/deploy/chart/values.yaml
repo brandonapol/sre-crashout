@@ -1,0 +1,11 @@
+product: storefront
+
+global:
+  environment: training
+  otlpEndpoint: http://otel-collector.observability.svc.cluster.local:4317
+  image:
+    repository: ghcr.io/brandonapol/sre-crashout
+    tag: dev
+    pullPolicy: IfNotPresent
+
+services: {}

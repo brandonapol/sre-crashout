@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: plans-medium-drill-sample-app
+expected_outcome: |
+  The agent reads orders-api, picks a medium-tier fault that fits it (one change that looks correct, with an
+  indirect or delayed symptom), writes the change as a patch outside the repository without editing
+  orders-api, and writes an answer key at answer-key/orders-api/medium.md following the guide template, with a
+  deploy announcement, page text, causal chain, evidence table including a red herring, hint ladder, mitigation
+  and fix, and run/verify/reset steps. Nothing in the patch (comments, names, commit message) reveals the
+  fault. It says clearly that nothing was deployed or verified.
+context:
+  scaffold_script: place-files.sh

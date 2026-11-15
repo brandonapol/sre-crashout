@@ -1,0 +1,58 @@
+release: 5.1.5
+services:
+  catalog:
+    main: dist/scenarios/storefront/services/catalog/main.js
+    version: 5.1.4
+    replicas: 2
+    podLabels:
+      tier: backend
+    env:
+      PAGE_SIZE: 24
+      RECOMMENDATIONS: false
+  checkout:
+    main: dist/scenarios/storefront/services/checkout/main.js
+    version: 5.1.5
+    replicas: 2
+    podLabels:
+      tier: backend
+    env:
+      CATALOG_URL: http://catalog:8080
+      INVENTORY_URL: http://inventory:8080
+      CATALOG_TIMEOUT: 1s
+      INVENTORY_TIMEOUT: 2s
+      INVENTORY_ATTEMPTS: 3
+      SOFT_RESERVATIONS: true
+    secretEnv:
+      INVENTORY_API_TOKEN:
+        secret: inventory-api
+        key: token
+    resources:
+      requests:
+        cpu: "400"
+        memory: 64Mi
+  inventory:
+    main: dist/scenarios/storefront/services/inventory/main.js
+    version: 5.1.4
+    replicas: 2
+    podLabels:
+      tier: backend
+    secretEnv:
+      INVENTORY_API_TOKEN:
+        secret: inventory-api
+        key: token
+    restartOnSecretChange:
+      - inventory-api
+  shopper-sim:
+    main: dist/scenarios/storefront/services/shopper-sim/main.js
+    version: 1.0.0
+    replicas: 1
+    podLabels:
+      tier: edge
+    env:
+      CATALOG_URL: http://catalog:8080
+      CHECKOUT_URL: http://checkout:8080
+      TRAFFIC_RATE: 20
+      CLIENT_TIMEOUT: 15s
+secrets:
+  inventory-api:
+    token: drill-only-token-2026-q3

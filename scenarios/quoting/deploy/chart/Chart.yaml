@@ -1,0 +1,9 @@
+apiVersion: v2
+name: quoting
+description: The quoting product
+type: application
+version: 0.1.0
+dependencies:
+  - name: workload
+    version: 0.1.0
+    repository: file://../../../../charts/workload
